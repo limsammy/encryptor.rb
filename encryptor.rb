@@ -20,6 +20,21 @@ class Encryptor
   	results.join
   end
 
+  def encrypt_file(filename, rotation)
+  	#create file handle to the input file
+  	input = File.open(filename, "r")
+  	#read the text of in the input file
+  	input.read
+  	#create a name for the output file
+  	encrypted = encrypt(input.read, rotation)
+  	#create an ouput file handle
+  	output = File.open("sample.txt.encrypted", "w")
+  	#write out the text
+  	output.write(encrypted)
+  	#close the file
+  	output.close
+  end
+
   def decrypt_letter(letter, rotation)
   	cipher_for_rotation = cipher(rotation)
   	cipher_for_rotation.key(letter)
