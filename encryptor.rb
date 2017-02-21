@@ -26,4 +26,20 @@ class Encryptor
   	# join the results into one, fully encrypted, string
   	results.join
   end
+
+  def decrypt_letter(letter)
+  	lowercase_letter = letter.downcase
+  	reversed_cipher = cipher.to_a.reverse.to_h
+  	reversed_cipher[lowercase_letter]
+  end
+
+  def decrypt(string)
+  	letters = string.split("")
+
+  	results = letters.collect do |letter|
+  		decrypt_letter = decrypt_letter(letter)
+  	end
+
+  	results.join
+  end
 end
