@@ -8,4 +8,9 @@ class Encryptor
      'u' => 'h', 'v' => 'i', 'w' => 'j', 'x' => 'k',
      'y' => 'l', 'z' => 'm'}
   end
+
+  def encrypt(letter)
+  	lowercase_letter = letter.downcase
+  	cipher[lowercase_letter]
+  end
 end
