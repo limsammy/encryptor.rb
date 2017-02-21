@@ -1,63 +1,64 @@
 class Encryptor
-  def cipher(rotation)
-  	characters = (' '..'z').to_a
-  	rotated_characters = characters.rotate(rotation)
-  	Hash[characters.zip(rotated_characters)]
-  end
 
-  def encrypt_letter(letter, rotation)
-  	cipher_for_rotation = cipher(rotation)
-  	cipher_for_rotation[letter]
-  end
+ 	def supported_characters
+ 		(' '..'z').to_a
+ 	end
 
-  def encrypt(string, rotation)
-  	letters = string.split("")
+	def cipher(rotation)
+		rotated_characters = supported_characters.rotate(rotation)
+		Hash[supported_characters.zip(rotated_characters)]
+	end
 
-  	results = letters.collect do |letter|
-  		encrypt_letter = encrypt_letter(letter, rotation)
-  	end
+	def encrypt_letter(letter, rotation)
+		cipher_for_rotation = cipher(rotation)
+		cipher_for_rotation[letter]
+	end
 
-  	results.join
-  end
+ 	def encrypt(string, rotation)
+ 		letters = string.split("")
 
-  def encrypt_file(filename, rotation)
-  	input = File.open(filename, "r")
-  	input.read
-  	encrypted = encrypt(input.read, rotation)
-  	output = File.open("sample.txt.encrypted", "w")
-  	output.write(encrypted)
-  	output.close
-  end
+ 		letters.collect do |letter|
+ 			encrypt_letter(letter, rotation)
+ 		end.join()
+ 	end
 
-  def decrypt_letter(letter, rotation)
-  	cipher_for_rotation = cipher(rotation)
-  	cipher_for_rotation.key(letter)
-  end
+ 	def decrypt_letter(letter, rotation)
+ 		decipher = cipher(rotation).invert
+ 		decipher[letter]
+ 	end
 
-  def decrypt(string, rotation)
-  	letters = string.split("")
+ 	def decrypt(string, rotation)
+ 		letters = string.split("")
 
-  	results = letters.collect do |letter|
-  		decrypt_letter = decrypt_letter(letter, rotation)
-  	end
+ 		letters.collect do |letter|
+ 			decrypt_letter(letter, rotation)
+ 		end.join()
+ 	end
 
-  	results.join
-  end
+ 	# Outputing to text files
+ 	def encrypt_file(filename, rotation)
+ 		input = File.open(filename, "r")
+ 		message = input.read
+ 		encrypted_message = encrypt(message, rotation)
+ 		output_filename = filename.gsub(".txt", ".txt.encrypted")
+ 		output = File.open(output_filename, "w")
+ 		output.write(encrypted_message)
+ 		output.close
+ 	end
 
-  def decrypt_file(filename, rotation)
-  	#create file handle to read txt
-  	input = File.open(filename, "r")
-  	#read text
-  	input.read
-  	#decrypt text by passing params
-  	decrypted = decrypt(input.read, rotation)
-  	#create name for decrypted file
-  	output_filename = filename.gsub("encrypted", "decrypted")
-  	#create an output file handle
-  	output = File.open(output_filename, 'w')
-  	#write out that text
-  	output.write(decrypted)
-  	#close file
-  	output.close
-  end
+ 	def decrypt_file(filename, rotation)
+ 		input = File.open(filename, "r")
+ 		message = input.read
+ 		decrypted_message = decrypt(message, rotation)
+ 		output_filename = filename.gsub("encrypted", "decrypted")
+		output = File.open(output_filename, "w")
+		output.write(decrypted_message)
+		output.close
+ 	end
+
+ 	def crack(encrypted_message)
+ 		supported_characters.count.times.collect do |attempt|
+ 			decrypt(encrypted_message, attempt)
+ 		end
+ 	end
 end
