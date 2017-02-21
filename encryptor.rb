@@ -43,4 +43,21 @@ class Encryptor
 
   	results.join
   end
+
+  def decrypt_file(filename, rotation)
+  	#create file handle to read txt
+  	input = File.open(filename, "r")
+  	#read text
+  	input.read
+  	#decrypt text by passing params
+  	decrypted = decrypt(input.read, rotation)
+  	#create name for decrypted file
+  	output_filename = filename.gsub("encrypted", "decrypted")
+  	#create an output file handle
+  	output = File.open(output_filename, 'w')
+  	#write out that text
+  	output.write(decrypted)
+  	#close file
+  	output.close
+  end
 end
