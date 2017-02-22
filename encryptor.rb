@@ -62,20 +62,3 @@ class Encryptor
  		end
  	end
 end
-
-e = Encryptor.new
-	
-print("Would you like to (1) encrypt or (2) decrypt a message? > ")
-input = gets.to_i
-if input == 1
-	puts("Enter a string to encrypt > ")
-	string = gets.to_s
-	puts("Enter a rotation to encrypt with > ")
-	rotation = gets.to_i
-	output = e.encrypt(string, rotation)
-	puts("Your encrypted message is #{output}")
-	elsif input == 2
-		decrypt
-	else
-		puts("Invalid...")
-	end
