@@ -3,17 +3,15 @@ require 'digest/md5'
 
 @e = Encryptor.new
 
-#password = samuel123 encrypted w rotation of 33 = > 9'3;+2RST
-#md5hexdigest = "5cf8376f80b723d609ae142afad77ce3"
-PASSWORD = "5cf8376f80b723d609ae142afad77ce3"
+#password = samuel123 encrypted w rotations of 33, 32, 31 = > 7%19)0PQR
+#md5hexdigest = "b78fe1479898047853bcd994e3c0c7e0"
+PASSWORD = "b78fe1479898047853bcd994e3c0c7e0"
 
 
 def check_access
 	print("Please enter the password > ")
-	guess_attempt = @e.encrypt(gets.chomp, 33)
-	puts guess_attempt
+	guess_attempt = @e.encrypt(gets.chomp, 33, 32, 31)
 	guess_md5 = Digest::MD5.hexdigest(guess_attempt)
-	puts guess_md5
 	if guess_md5 == PASSWORD
 		puts "Authorized!"
 		authed()
@@ -30,16 +28,20 @@ def authed
 		if input == 'e'
 			print("Enter a string to encrypt > ")
 			string = gets.chomp.to_s
-			print("Enter a rotation to encrypt with > ")
-			rotation = gets.chomp.to_i
-			output = @e.encrypt(string, rotation)
+			print("Enter first rotation to encrypt with > ")
+			rotation1 = gets.chomp.to_i
+			print("Enter second rotation to encrypt with > ")
+			rotation1 = gets.chomp.to_i
+			print("Enter third rotation to encrypt with > ")
+			rotation1 = gets.chomp.to_i
+			output = @e.encrypt(string, rotation1, rotation2, rotation3)
 			puts("Your encrypted message is #{output}")
 		elsif input == 'd'
 			print("Enter a string to decrypt > ")
 			string = gets.to_s
-			print("Enter rotation key > ")
+			print("Enter first rotation key > ")
 			rotation = gets.to_i
-			output = @e.decrypt(string, rotation)
+			output = @e.decrypt(string, rotation1, rotation2, rotation3)
 			puts("Your decrypted message is #{output}")
 		elsif input == 'q'
 			puts "Quitting in 3, 2, 1..."
