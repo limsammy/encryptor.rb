@@ -31,16 +31,20 @@ def authed
 			print("Enter first rotation to encrypt with > ")
 			rotation1 = gets.chomp.to_i
 			print("Enter second rotation to encrypt with > ")
-			rotation1 = gets.chomp.to_i
+			rotation2 = gets.chomp.to_i
 			print("Enter third rotation to encrypt with > ")
-			rotation1 = gets.chomp.to_i
+			rotation3 = gets.chomp.to_i
 			output = @e.encrypt(string, rotation1, rotation2, rotation3)
 			puts("Your encrypted message is #{output}")
 		elsif input == 'd'
 			print("Enter a string to decrypt > ")
 			string = gets.to_s
 			print("Enter first rotation key > ")
-			rotation = gets.to_i
+			rotation1 = gets.to_i
+			print("Enter second rotation key > ")
+			rotation2 = gets.to_i
+			print("Enter third rotation key > ")
+			rotation3 = gets.to_i
 			output = @e.decrypt(string, rotation1, rotation2, rotation3)
 			puts("Your decrypted message is #{output}")
 		elsif input == 'q'
