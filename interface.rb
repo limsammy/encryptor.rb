@@ -1,7 +1,40 @@
 require './encryptor'
 require 'digest/md5'
+require 'green_shoes'
 
 @e = Encryptor.new
+
+# Shoes.app do title "Encryptor"
+# 	background white
+
+# 	stack(margin: 12) do
+# 		para "Enter string to encrypt or decrypt:"
+# 		flow do
+# 			@string = edit_line
+# 		end
+# 		flow do
+# 			para "Enter rotations:"
+# 			@rotation1 = edit_line
+# 			@rotation2 = edit_line
+# 			@rotation3 = edit_line
+# 		end
+# 		flow do
+# 			@encrypt_button = button "Encrypt"
+# 			@encrypt_button.click {
+# 				@encrypted_string = @e.encrypt(@string, @rotation1, @rotation2, @rotation3)
+# 				@message.replace(@encrypted_string)
+# 			}
+# 		end
+# 		flow do
+# 			@decrypt_button = button "Decrypt"
+# 			@decrypt_button.click {
+# 				@decrypted_string = @e.decrypt(@string, @rotation1, @rotation2, @rotation3)
+# 				@message.replace(@decrypted_string)
+# 			}
+# 		end
+# 		@messasge = para "nil"
+# 	end
+# end
 
 #password = samuel123 encrypted w rotations of 33, 32, 31 = > 7%19)0PQR
 #md5hexdigest = "b78fe1479898047853bcd994e3c0c7e0"
@@ -56,4 +89,3 @@ def authed
 	end
 end
 
-check_access()
