@@ -89,3 +89,4 @@ def authed
 	end
 end
 
+check_access()
